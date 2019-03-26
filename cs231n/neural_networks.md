@@ -6,7 +6,7 @@
 
 ### 生物动机与连接
 大脑的基本组成单元是**神经元**。人类神经系统拥有大量的神经元且彼此间通过**突触**进行连接。这里不过多的进行介绍。根据神经元结果，构建了神经元的计算模型，如下图所示：
-{% asset_img neuron_model.jpg %}
+![neuron_model](neural_networks/neuron_model.jpg)
 在上图中，沿着轴突传播的信号($x_0$)将基于突触的强度($w_0$)与其他神经元的树突进行乘法交互($w_0x_0$)。其观点是，突触的强度($w$)是可以学习的并且可以控制一个神经元对另一个神经元的影响强度以及方向。在基本模型中，输入将信号传递到胞体内，信号在胞体内进行相加。如果最终之和高于某个阈值，那么神经元将会激活，向其轴突输出一个峰值信号。在计算模型中，我们假设峰值信号的准确时间点不重要，是激活信号频率在交流信息。基于这个速率的编码观点，将神经元的激活率建模成**激活函数**，表示轴突上激活信号的频率。激活函数通常使用**sigmoid函数$\sigma$**，该函数输入实数值，然后将输入值压缩到0-1之间。
 下面给出一个神经元前向传播的实例：
 ``` python
@@ -31,23 +31,23 @@ class Neuron(object):
 ## 激活函数
 
 ### Sigmoid
-{% asset_img sigmoid.jpg %}
+![sigmoid](neural_networks/sigmoid.jpg)
 $$ \sigma(x) = \frac{1}{1 + e^{-x}} $$
 将输入的实数值“挤压”到0-1的范围内。更确切的说，极小的负数变成0，极大的正数变成1。sigmoid函数在以前是非常常用的，这是因为它对神经元的激活频率有良好的解释：从完全不激活(0)到求和后最大频率处的完全激活(1)。但是现在很少使用sigmoid函数是一下两个缺点导致：
 1.  **Sigmoid函数饱和使梯度消失**：当神经元的激活在接近0或者1的时候会饱和，梯度几乎会变成0。如果梯度过小，那么反向传播到数据就几乎可以忽略不记了，最终导致整个网络几乎不学习。
 2.  **Sigmoid函数的输出不是零中心的**：如果输入神经元的数据总是正数，那么关于$w$的梯度在反向传播的过程中，将会要么全部是正数，要么全部是负数。这将会导致梯度下降权重更新时出现`z字形`下降，导致学习缓慢。
 ### Tanh
-{% asset_img tanh.jpg %}
+![tanh](neural_networks/tanh.jpg)
 tanh将实数值压缩到[-1, 1]之间，和sigmoid函数一样**存在饱和问题**，但是和sigmoid不同的是，它的输出是零中心的。因此在实际使用中，tanh更受欢迎。同时，tanh神经元可看作是简单放大的sigmoid神经元：$tanh(x) = 2\sigma (2x) - 1$。
 ### ReLU
-{% asset_img relu.jpg %}
+![relu](neural_networks/relu.jpg)
 $$ f(x) = \max(0, x) $$
 relu是一个关于0阈值的函数，有以下特点：
 1.  相较于sigmoid和tanh函数，ReLU对于随机梯度下降的收敛有着巨大的加速作用，这是由它的线性和非饱和导致的。[参考](http://www.cs.toronto.edu/~fritz/absps/imagenet.pdf)。
 2.  sigmoid和tanh神经元含有指数运算等耗费计算资源的操作，而ReLU仅仅通过对矩阵进行简单的阈值计算即可得到。
 3.  在训练的时候，ReLU单元比较脆弱并且可能‘死掉’。当一个很大的梯度流过ReLU的神经元的时候，可能会导致梯度更新到一种特别的状态，这种状态下神经元将无法被其他任何数据点再次激活。也就是说，ReLU单元在训练中将不可逆转的死亡，将会导致数据多样化的丢失。（学习率设置的过高，40%的神经元都会死掉，因此可以降低学习率来降低发生的概率）。
 ### Leaky ReLU
-{% asset_img alexplot.jpg %}
+![leaky relu](neural_networks/alexplot.jpg)
 $$ f(x) = \mathbb{1}(x < 0)(\alpha x) + \mathbb{1}(x >= 0)(x) $$
 Leaky ReLU是为了解决ReLU死亡的问题。正如上式中，Leaky ReLU中当$x < 0$时，会给出一个很小的梯度值。这个公式性能不错，但是不是很稳定。2015年何凯明在论文中介绍了一个新的方法[PReLU](http://arxiv.org/abs/1502.01852)，将负区间上的斜率当作每个神经元中的一个参数，但是并没有证明能够适用于所有的任务。
 ### Maxout
@@ -59,12 +59,10 @@ Maxout是对ReLU和leaky ReLU的一般化归纳，公式为：$\max(w_1^Tx + b_1
 
 ### 灵活的组织
 **将神经网络作为神经元使用图片进行展示**：神经网络可以看成是一系列的神经元组成的，神经元之间使用无环图的方式进行连接。也就是说一部分神经元的输出是另一部分神经元的输入。在网络中不允许出现循环，以防止在前向传播的时候出现无限循环的情况。不像真正的神经元，神经网络中的神经元经常是分层的。普通的神经网络中最常用的是全连接层，用来对前后两层的神经元的成对连接，而在全连接层内部的神经元之间没有任何连接。下面两个图便是使用全连接层的神经网络模型：
-{% raw %}
 <div>
-  <img src="neural_net.jpg" width="40%" style="display: inline-block"/>
-  <img src="neural_net2.jpg" width="55%" style="display: inline-block; border-left: 1px solid black;" />
+  <img src="neural_networks/neural_net.jpg" width="40%" style="display: inline-block"/>
+  <img src="neural_networks/neural_net2.jpg" width="55%" style="display: inline-block; border-left: 1px solid black;" />
 </div>
-{% endraw %}
 
 
 1.  **命名规则**：对于N层神经网络时，并不会将输入层计入在内。因此单层神经网络没有隐藏层，输入直接映射到输出上。在这种命名规则上，人们通常成逻辑回归或SVM为简单的单层神经网络的特例。也有人会用*Artificial Neural Networs*(ANN)或者是*Multi-Layer Perceptrons*(MLP)来替代神经网络。
@@ -92,12 +90,12 @@ out = np.dot(W3, h2) + b3
 ### 设置层的数量和尺寸
 在面对一个具体问题时该如何确定网络结构呢，该使用多少隐藏层，每个层的尺寸为多大？
 首先，要知道当我们增加层的数量和尺寸时，网络的容量上升了。即神经元合作表达出许多复杂的函数，所以表达函数的空间得以增加。例如我们使用不同的神经网络进行训练，每个网络只有一个隐藏层，但是每个隐藏层的神经元数目不同，效果如下图：
-{% asset_img layer_sizes.jpg %}
+![layer_size](neural_networks/layer_sizes.jpg)
 在上图中，可以看到更多的神经元的神经网络可以表达出更复杂的函数，然而这既是优势也是不足。优势是**可以分类更复杂的数据**，不足时**可能造成对训练数据的过拟合**。过拟合是网络对数据中的噪声有很强的拟合能力，而没有重视数据间的潜在的基本关系。相反，有3个隐藏层的神经元模型的表达能力只能用比较宽泛的方式去分类数据，这样能获得更好的**泛化**能力。
 
 不要减少网络神经元数目的主要原因在于小网络更难使用梯度下降等局部方法来进行训练：虽然小型网络的损失函数的局部极小值更少，也比较容易收敛到这些局部极小值，但是这些最小值一般都很差，损失值很高。相反，大网络拥有更多的局部极小值，但就实际损失值来看，这些局部极小值表现更好，损失更小。因为神经网络是非凸的，就很难从数学上研究这些特性。在实际中，你将发现如果训练的是一个小网络，那么最终的损失值将展现出多变性：某些情况下运气好会收敛到一个好的地方，某些情况下就收敛到一个不好的极值。从另一方面来说，如果你训练一个大的网络，你将发现许多不同的解决方法，但是最终损失值的差异将会小很多。这就是说，所有的解决办法都差不多，而且对于随机初始化参数好坏的依赖也会小很多。
 重申一下，正则化强度是控制神经网络过拟合的好方法。看下图结果：
-{% asset_img reg_strengths.jpg %}
+![reg_strngths](neural_networks/reg_strengths.jpg)
 > 不同正则化强度的效果：每个神经网络都有20个隐层神经元，但是随着正则化强度增加，它的决策边界变得更加平滑。
 
 *需要记住的是：不应该因为害怕出现过拟合而使用小网络。相反，应该进尽可能使用大网络，然后使用正则化技巧来控制过拟合。*
@@ -159,9 +157,9 @@ Xwhite = Xrot / np.sqrt(S + 1e-5)
 1.  **L2正则化**是最常用的正则化方法。可以通过惩罚目标函数中所有的参数平方来实现，即对网络中的每个权重$w$，向目标函数中增加$\frac{1}{2}\lambda w^2$的项，其中$\lambda$是正则化强度。之所以使用因子$\frac{1}{2}$是因为在反向传播计算$w$的梯度时简单的使用$\lambda w$而不是$2\lambda w$。L2正则化可以直观的理解为对大数值的权重向量进行严厉惩罚，倾向于更加分散的权重向量。因此，是网络能够更加倾向于以来所有的输入特征，而不是严重的依赖于某一小部分特征。在梯度下降和参数更新的时候，使用L2正则化，所有的权重都会以`W += -lambda * W`的方式线性下降趋向于0。
 2.  **L1正则化**是另一个很常用的方法。类似于L2正则化，不过L1正则化是向目标函数中增加$\lambda |w|$的项。L1正则化和L2正则化可以进行结合：$\lambda_1|w| + \lambda_2w^2$([Elastic net regularization](http://web.stanford.edu/~hastie/Papers/B67.2%20%282005%29%20301-320%20Zou%20&%20Hastie.pdf))。
 >L1正则化能够让权重向量在最优化的过程中变得稀疏(即非常接近0)，也就是说使用L1正则化的神经元只使用重要输入的一部分稀疏子集，而且对噪声有更强的鲁棒性。L2正则化则会让权重变得发散，并且是较小的数值。实际上，如果特征选择并不是很重要，那么L2正则化比L1正则化会更好。
-3.  **最大范数约束(Max Norm Constraints)**是给每个神经元权重向量的量级设置上限，并使用投影梯度下降来确保这一约束。在实践中，参数的更新按照正常方式进行，然后对权重向量$\overrightarrow{w}$做以下约束：$||{\overrightarrow{w}}||_2 < c$，通常$c$的值为3或者4。有些实验者提出这种正则化的方式会有很好的性能，并且能够防止网络中出现数值'爆炸'的情况，这是因为参数的数值始终被限制着。
-4.  **随机失活(Dropout)**是一个简单又极其有效的正则化方法。该方法在[Dropout: A Simple Way to Prevent Neural Networks from Overfitting](http://www.cs.toronto.edu/~rsalakhu/papers/srivastava14a.pdf)论文中提到。在训练过程中，随机失活的实现方法是让神经元以超参数$p$为概率被激活或者设置成0，示意图如下：
-{% asset_img dropout.jpg %}
+3.  **最大范数约束(Max Norm Constraints)** 是给每个神经元权重向量的量级设置上限，并使用投影梯度下降来确保这一约束。在实践中，参数的更新按照正常方式进行，然后对权重向量$\overrightarrow{w}$做以下约束：$||{\overrightarrow{w}}||_2 < c$，通常$c$的值为3或者4。有些实验者提出这种正则化的方式会有很好的性能，并且能够防止网络中出现数值'爆炸'的情况，这是因为参数的数值始终被限制着。
+4.  **随机失活(Dropout)** 是一个简单又极其有效的正则化方法。该方法在[Dropout: A Simple Way to Prevent Neural Networks from Overfitting](http://www.cs.toronto.edu/~rsalakhu/papers/srivastava14a.pdf)论文中提到。在训练过程中，随机失活的实现方法是让神经元以超参数$p$为概率被激活或者设置成0，示意图如下：
+![dropout](neural_networks/dropout.jpg)
 照片来源于论文，在训练过程中，随机失活可以被认为是对完整神经网络抽样出一些子集，每次基于输入数据只更新子集中的参数。但是在测试过程中，并不使用随机失活。随机失活的代码可以参考以下部分：
 ``` python
 """ Vanilla Dropout: Not recommended implementation (see notes below) """
@@ -264,10 +262,10 @@ $$ \frac{\mid f'_a - f'_n \mid}{\max(\mid f'_a \mid, \mid f'_n \mid)} $$
 ### 训练过程
 在对神经网络进行训练的时候，应该跟踪多个重要的数值，从而直到如何改变超参数以获得更高效的学习过程。下面讨论设计的图表中，大部分x轴都是以epoch为单位的，表示在训练中每个样本数据被训练过次数。
 1. **损失函数**是最重要的指标，在前向传播中独立的对每个批次进行计算。下图给出了损失函数的曲线图，尤其是标注了学习率对于损失函数的影响：
-{% asset_img learningrates.jpg %}
+![learning rage](neural_networks/learningrates.jpg)
 过低的学习率损失函数呈现线性，高一些的学习率看起来呈现几何指数下降，更高的学习率会让损失值很快的下降，但这会停到一个不是很好的点上。损失值的震荡程度和批量的大小有关，当每个批次数量为1的时候，震荡相对会大一些，批次大一些就好好点。
 2. **训练集和验证的准确率**：在训练分类器的时候，第二个比较重要的指标是准确率。下面图表显示该曲线：
-{% asset_img accuracies.jpg %}
+![accuracies](neural_networks/accuracies.jpg)
 蓝色验证集的曲线显示相较于训练集，验证集的准确度低了很多，这说明模型有很强的过拟合。遇到这种情况，就应该增大惩罚强度或者增大训练集。
 3. **权重更新的比例**：最后一个应该追踪的量是权重中*更新值的数量和*全部值的数量之间的比例。需要对每个参数集的更新比例进行单独的计算和跟踪，一个经验性的结论是更新的比例大致是**1e-3**，如果更低，说明学习率设置的太小、如果更高，说明学习率设置的过高了。下面给出一个例子：
 ``` python
@@ -313,7 +311,7 @@ print update_scale / param_scale
     ```
     更新公式描述如下：$$v \gets \alpha v - \epsilon \nabla_\theta\Big(\frac{1}{m}\sum_{i = 1}^{m}{L(f(x^{(i)}; \theta + \alpha v), y^{(i)}})\Big) $$ $$\theta \gets \theta + v$$
   Nesterov动量和普通动量更新的区别图：
-  ![nesterov](nesterov.jpg)
+  ![nesterov](neural_networks/nesterov.jpg)
 
 2. **学习率退火**
   在深度学习训练阶段，让学习率随着时间退火通常是有帮助的：如果学习率一直很高，系统动能就会过大，参数向量就会无规律地跳动，不能够达到最优解。但是如果慢慢减小学习率，可能很长的时间都是在浪费计算资源，因为可能会有很长的时间都在无规律的跳动。若是快速的减小，就会导致学习率过小而无法达到最优解。通常，可以采用3种方式：
@@ -353,12 +351,10 @@ print update_scale / param_scale
     这个算法跟RMSProp很像，只不过是使用了平滑的梯度`m`，而不是原始的梯度向量`dx`。论文中推荐的超参数值为$eps = 1e-8, beta1 = 0.9, beta2 = 0.999$。在实际使用中，推荐使用该算法，一般而言比RMSProp更好一点。
 
   下图给出几种算法的效果比较：
-  {% raw %}
   <div>
-    <img src="opt2.gif" width="49%" style="display: inline-block">
-    <img src="opt1.gif" width="49%" style="display: inline-block; border-left: 1px solid black;">
+    <img src="neural_networks/opt2.gif" width="49%" style="display: inline-block">
+    <img src="neural_networks/opt1.gif" width="49%" style="display: inline-block; border-left: 1px solid black;">
   </div>
-  {% endraw %}
   更多的可以参考论文[Unit Tests for Stochastic Optimization](http://arxiv.org/abs/1312.6055)关于对随机最优化的测试的结论。
 
 ### 超参数调优

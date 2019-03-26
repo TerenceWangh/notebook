@@ -5,12 +5,10 @@
 当神经网络接收到一个输入后，通过一系列的隐藏层对其进行变换。每个隐藏层有一系列的神经元组成，每个神经元和之前的层的神经元相连，并且在每一层每个神经元相当于是相互独立的函数且彼此间不连接。最后一个全连接层成为输出层，并在分类问题中代表是分类的评分。
 普通的神经网络在图像识别上不是很好。CIFAR-10图像集中，图片的大小只有32x32x3大小，因此在普通神经网络的第一个隐藏层全连接神经元将会有`32 * 32 * 3 = 3072`个权重。这个数量级看起来还不是很大，但是很明显的是全连接结构不适合大尺寸的图片。这是由于图像增大所需要更多的权重，参数的数量将会增长的特别快！并且，全连接是没有必要的，大量的参数也将会导致很快的过拟合。
 卷积神经网络的输入可以为图片，并且能够使用更加合理的方式对框架进行约束。特别的，不想普通的神经网络，卷积网络在3维上组织神经元：**宽、高、深度**(这里使用深度一词并不是指整个网络的层数，而是指第三个维度)。例如，CIFAR-10作为输入的话，那么其体积为32x32x3，分别代表了长、高和深度。后面我们就会看到，一个层中的神经元并不是与之前所有的神经元进行连接的，而是仅仅和一部分进行连接。另外，CIFAR-10的输出层的维度为1x1x10，这是由于卷积网络结构将会将整张图片压缩成一个分类评分的向量，并作为深度的维度。下面给出可视化的例子：
-{% raw %}
 <div>
-  <img src="neural_net2.jpg" width="40%" style="display: inline-block"/>
-  <img src="cnn.jpg" width="55%" style="display: inline-block; border-left: 1px solid black;" />
+  <img src="convolutional_networks/neural_net2.jpg" width="40%" style="display: inline-block"/>
+  <img src="convolutional_networks/cnn.jpg" width="55%" style="display: inline-block; border-left: 1px solid black;" />
 </div>
-{% endraw %}
 左面是一个3层的神经网络，右面可视化了卷积网络结构神经元在三个维度上是如何排列的，可以看出卷积网络将3维输入经过神经元之后输出的也是3维的。
 
 > A ConvNet is made up of Layers. Every Layer has a simple API: It transforms an input 3D volume to an output 3D volume with some differentiable function that may or may not have parameters.
@@ -24,12 +22,12 @@
 * POOL层作用相当于下采样操作，输出大小变为[16x16x12]。
 * FC层将会计算分类的评分，输出大小为[1x1x10]，10个数代表分类的评分，正好对应CIFAR-10的10个类别。与普通的神经网络一样，该层中每个神经元会连接到上一层中所有的神经元。
 从上面的结构可以看出，卷积网络将原始的图片一层一层的进行计算得出最终的分类评分。但是有些层是不包含任何参数的。特别的，CONV/FC层不仅仅是输入的函数，而且还是参数(神经元的权重和偏置)的参数。另一方面，RELU/POOL层是固定的函数。CONV/FC层的参数使用梯度下降的方式进行训练。下面给出一些总结：
-* 卷积网络网络是通过一系列的层将图片输入转化成分类评分输出。
+* 卷积网络是通过一系列的层将图片输入转化成分类评分输出。
 * 有很多不同类型的层：CONV/FC/RELU/POOL是比较常用的层。
 * 每一层的输入都是3维数据，并使用一个可微函数将其转化成3维的输出。
 * 并不是每一层都有参数，例如RELU/POOL就没有参数。
 * 并不是所有层都有超参数，例如CONV/FC/POOL有但RELU没有。
-![The activations of an example 卷积网络 architecture.](卷积网络.jpg)
+![卷积网络的示例](convolutional_networks/convnet.jpg)
 上面给出了一个卷积网络的结构，这里最后的输出只可视化了5个分类的数据。
 
 ### 卷积层
@@ -41,12 +39,10 @@
   * *例2*，将设输入数据的大小为[16x16x20]，然后使用3x3的卷积核，卷积层的每个神经元会有3\*3\*20=180个权重。再次提醒深度要保持一致。
 
 下面给出卷积神经网络的卷积操作和神经元的对比图：
-{% raw %}
 <div>
-  <img src="depthcol.jpg" width="40%" style="display: inline-block"/>
-  <img src="neuron_model.jpg" width="55%" style="display: inline-block; border-left: 1px solid black;" />
+  <img src="convolutional_networks/depthcol.jpg" width="40%" style="display: inline-block"/>
+  <img src="convolutional_networks/neuron_model.jpg" width="55%" style="display: inline-block; border-left: 1px solid black;" />
 </div>
-{% endraw %}
 
 **空间组织**：上面讲到了神经元是如何进行连接的，但是还没有讨论输出数据神经元的个数以及它们是如何进行组织的。有三个超参数控制着输出的大小：**深度、步长和零填充**。
 1. 首先，输出的**深度**是一个超参数，对应着滤波器的数量，而每个滤波器在输入数据中关注不同的特征。例如，如果第一个卷积层的输入是原始图像，那么深度维度上不同的神经元可能被不同方向的边界、颜色斑点特征激活。
@@ -54,7 +50,7 @@
 3. 有时，可通过对输入的边界填充0来保证输出和输入大小相同。**零填充**的尺寸是一个超参数。
 
 输出的大小可以根据输入的大小进行计算，卷积层神经元的卷积核的大小为**F**，步长为**S**，在边上进行零填充的大小为**P**。假设输入的宽和高是相同的，那么输出数据的宽和高为$(W - F + 2P) / S + 1$。例如，输出是7x7，滤波器大小为3x3，步长为1，不进行填充，那么输出大小为5x5。下面给出一个图方便进行理解：
-![illustration of spatial arrangement](stride.jpg)
+![illustration of spatial arrangement](convolutional_networks/stride.jpg)
 在图中，只有一个空间维度，神经元的卷积核F = 3，输出W = 5，零填充P = 1。左面的例子神经元的步长S = 1， 因此输出为(5 - 3 + 2) / 1 + 1 = 5。右面的例子中步长S = 2，因此输出大小为(5 - 3 + 2) / 2 + 1 = 3。在这个例子中，神经元的权重是[1, 0, -1]，偏差为0。这些权重被所有的神经元共享。
 
 *使用零填充*：在上面左面的例子中，输入尺寸大小为5，输出的大小也是5，使用了3x3的接受域并使用尺寸为1的零填充。如果不使用零填充，那么输出的空间维度大小仅仅是3。一般来说，当步长为1的时候，将零填充设置为$P = (F - 1) / 2$能够使得输出和输入大小一致。使用零填充是非常常见的一种方式，后面再给出详细的原因。
@@ -124,12 +120,10 @@
 * 一般不使用零填充
 
 **普通池化**：除了最大池化，池化单元也能使用其他方式，像*平均池化*和*L2-norm池化*。平均池化之前经常使用，但是现在基本上都使用最大池化来替代了，事实也表明最大池化的效果更好。下面给出了池化操作的图像说明：
-{% raw %}
 <div>
-  <img src="pool.jpg" width="36%" style="display: inline-block"/>
-  <img src="maxpool.jpg" width="59%" style="display: inline-block; border-left: 1px solid black;" />
+  <img src="convolutional_networks/pool.jpg" width="36%" style="display: inline-block"/>
+  <img src="convolutional_networks/maxpool.jpg" width="59%" style="display: inline-block; border-left: 1px solid black;" />
 </div>
-{% endraw %}
 
 **反向传播**：回想反向传播的内容，`max(x, y)`的操作的简单解释是仅仅将输入的最大值进行向后传播。因此，在反向传播的时候，只需要反向传播最大值的激活即可。
 

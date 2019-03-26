@@ -19,7 +19,7 @@ for j in range(K):
 plt.scatter(X[:, 0], X[:, 1], c=y, s=40, cmap=plt.cm.Spectral)
 plt.show()
 ```
-![线性不可分数据](spiral_raw.png)
+![线性不可分数据](nn_case/spiral_raw.png)
 > 通常都会数数据集进行预处理，将每个维度的特征的均值和方差处理成0。但是上面给出的数据，数据是从-1到1，并且分布较为均匀，因此我们跳过这一步。
 
 ## 训练Softmax线性分类
@@ -167,7 +167,7 @@ predicted_class = np.argmax(scores, axis=1)
 print('training accuracy: %.2f' % (np.mean(predicted_class == y)))
 ```
 上面输出为49%左右，效果不是很好，毕竟这是一个线性不可分的任务。下面给出学得的边界：
-![线性分类边界](spiral_linear.png)
+![线性分类边界](nn_case/spiral_linear.png)
 
 ## 使用神经网络进行训练
 很显然，线性分类器并不适合上面的数据集。下面将会使用神经网络进行训练。另外新加一个隐藏层即可满足上面的数据集。因此，我们需要两个权重和偏置的参数集(第一层和第二层)：
@@ -289,7 +289,7 @@ predicted_class = np.argmax(scores, axis=1)
 print("training accuracy: %.2f" % (np.mean(predicted_class == y)))
 ```
 将会得到98%的精确率。对边界进行可视化为：
-![神经网络训练的边界](spiral_net.png)
+![神经网络训练的边界](nn_case/spiral_net.png)
 
 ## 总结
 我们已经引入了一个2维的数据集，并使用线性分类和2层神经网络进行训练。可以看出从线性分类到神经网络的代码修改时非常小的，包括评分函数的改变，反向传播形式的变化。
