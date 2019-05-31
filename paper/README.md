@@ -5,6 +5,7 @@
     * [MultiBox](detection/MultiBox.md) Scalable Object Detection using Deep Neural Networks | **[CVPR' 14]** | [[arXiv:1312.2249](https://arxiv.org/abs/1312.2249)]
     * [OverFeat](detection/OverFeat.md) OverFeat: Integrated Recognition, Localization and Detection using Convolutional Networks | **[ICLR' 14]** | [[arXiv:1312.6229](https://arxiv.org/abs/1312.6229)]
     * [SPP-Net](detection/SPPNet.md) Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition | **[ECCV' 14]** | [[arXiv:1406.4729](https://arxiv.org/abs/1406.4729)]
+    * [AttentionNet](detection/AttentionNet.md) AttentionNet: Aggregating Weak Directions for Accurate Object Detection | **[ICCV' 15]** | [[arXiv:1506.07704](https://arxiv.org/abs/1506.07704)]
     * [Faster RCNN, RPN](detection/FasterRCNN.md) R-CNN: Towards Real-Time Object Detection with Region Proposal Networks | **[NIPS' 15]** | [[arXiv:1506.01497](https://arxiv.org/abs/1506.01497)]
     * RFCN
     * [YOLO](detection/YOLO.md):
