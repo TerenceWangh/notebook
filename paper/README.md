@@ -9,7 +9,8 @@
     * [DeepBox](detection/DeepBox.md) DeepBox: Learning Objectness with Convolutional Networks | **[ICCV' 15]** | [[arXiv:1505.02146](https://arxiv.org/abs/1505.02146)]
     * [DeepProposal](detection/DeepProposal.md) DeepProposal: Hunting Objects by Cascading Deep Convolutional Layers | **[ICCV' 15]** | [[arXiv:1510.04445](https://arxiv.org/abs/1510.04445)]
     * [Faster RCNN, RPN](detection/FasterRCNN.md) R-CNN: Towards Real-Time Object Detection with Region Proposal Networks | **[NIPS' 15]** | [[arXiv:1506.01497](https://arxiv.org/abs/1506.01497)]
-    * [AZ-Net](detection/AZNet.md) | **[CVPR' 16]** | [[arXiv:1512.07711](https://arxiv.org/abs/1512.07711)]
+    * [G-CNN](detection/GCNN.md) G-CNN: an Iterative Grid Based Object Detecto | **[CVPR' 16]** | [[arXiv:1512.07729](https://arxiv.org/abs/1512.07729)]
+    * [AZ-Net](detection/AZNet.md) Adaptive Object Detection Using Adjacency and Zoom Prediction  | **[CVPR' 16]** | [[arXiv:1512.07711](https://arxiv.org/abs/1512.07711)]
     * RFCN
     * [YOLO](detection/YOLO.md):
         1. [v1] You Only Look Once: Unified, Real-Time Object Detection | **[CVPR' 16]** | [[arXiv:1506.02640](https://arxiv.org/abs/1506.02640)]
