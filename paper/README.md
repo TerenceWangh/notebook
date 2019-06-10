@@ -11,6 +11,7 @@
     * [Faster RCNN, RPN](detection/FasterRCNN.md) R-CNN: Towards Real-Time Object Detection with Region Proposal Networks | **[NIPS' 15]** | [[arXiv:1506.01497](https://arxiv.org/abs/1506.01497)]
     * [G-CNN](detection/GCNN.md) G-CNN: an Iterative Grid Based Object Detecto | **[CVPR' 16]** | [[arXiv:1512.07729](https://arxiv.org/abs/1512.07729)]
     * [AZ-Net](detection/AZNet.md) Adaptive Object Detection Using Adjacency and Zoom Prediction  | **[CVPR' 16]** | [[arXiv:1512.07711](https://arxiv.org/abs/1512.07711)]
+    * [ION](detection/ION.md) Inside-Outside Net: Detecting Objects in Context with Skip Pooling and Recurrent Neural Networks | **[CVPR' 16]** | [[arXiv:1512.04143](https://arxiv.org/abs/1512.04143)]
     * RFCN
     * [YOLO](detection/YOLO.md):
         1. [v1] You Only Look Once: Unified, Real-Time Object Detection | **[CVPR' 16]** | [[arXiv:1506.02640](https://arxiv.org/abs/1506.02640)]
