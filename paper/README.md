@@ -12,6 +12,7 @@
     * [G-CNN](detection/GCNN.md) G-CNN: an Iterative Grid Based Object Detecto | **[CVPR' 16]** | [[arXiv:1512.07729](https://arxiv.org/abs/1512.07729)]
     * [AZ-Net](detection/AZNet.md) Adaptive Object Detection Using Adjacency and Zoom Prediction  | **[CVPR' 16]** | [[arXiv:1512.07711](https://arxiv.org/abs/1512.07711)]
     * [ION](detection/ION.md) Inside-Outside Net: Detecting Objects in Context with Skip Pooling and Recurrent Neural Networks | **[CVPR' 16]** | [[arXiv:1512.04143](https://arxiv.org/abs/1512.04143)]
+    * [CRAFT](detection/CRAPF.md) CRAFT Objects from Images | **[CVPR' 16]** | [[arXiv:1604.03239](https://arxiv.org/abs/1604.03239)]
     * RFCN
     * [YOLO](detection/YOLO.md):
         1. [v1] You Only Look Once: Unified, Real-Time Object Detection | **[CVPR' 16]** | [[arXiv:1506.02640](https://arxiv.org/abs/1506.02640)]
