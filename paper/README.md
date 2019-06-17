@@ -20,6 +20,7 @@
         1. [v2] YOLO9000: Better, Faster, Stronger | **[CVPR' 17]** | [[arXiv:1612.08242)](https://arxiv.org/abs/1612.08242)]
         1. [v3] YOLOv3: An Incremental Improvement | **[arXiv' 18]** | [[arXiv:1804.02767](https://arxiv.org/abs/1804.02767)]
     * [SSD](detection/SSD.md) SSD: Single Shot MultiBox Detector | **[ECCV' 16] |** [[arXiv:1512.02325](https://arxiv.org/abs/1512.02325)]
+    * [GBDNet](detection/GDBNet.md) Crafting GBD-Net for Object Detection | **[ECCV' 16]** | [[arXiv:1610.02579](https://arxiv.org/abs/1610.02579)]
     * DSSD
 
 1. 图像分割
