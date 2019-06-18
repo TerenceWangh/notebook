@@ -14,6 +14,7 @@
     * [ION](detection/ION.md) Inside-Outside Net: Detecting Objects in Context with Skip Pooling and Recurrent Neural Networks | **[CVPR' 16]** | [[arXiv:1512.04143](https://arxiv.org/abs/1512.04143)]
     * [CRAFT](detection/CRAPF.md) CRAFT Objects from Images | **[CVPR' 16]** | [[arXiv:1604.03239](https://arxiv.org/abs/1604.03239)]
     * [MPN](detection/MPN.md) A MultiPath Network for Object Detection | **[BMVC' 16]** | [[arXiv:1604.02135](https://arxiv.org/abs/1604.02135)]
+    * [CPF](detection/CPF.md) Contextual Priming and Feedback for Faster R-CNN | **[ECCV' 16]**
     * RFCN
     * [YOLO](detection/YOLO.md):
         1. [v1] You Only Look Once: Unified, Real-Time Object Detection | **[CVPR' 16]** | [[arXiv:1506.02640](https://arxiv.org/abs/1506.02640)]
