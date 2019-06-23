@@ -17,6 +17,7 @@
     * [CPF](detection/CPF.md) Contextual Priming and Feedback for Faster R-CNN | **[ECCV' 16]**
     * [MS-CNN](detection/MS-CNN.md) A Unified Multi-scale Deep Convolutional Neural Network for Fast Object Detection | **[ECCV' 16]** | [[arXiv:1607.07155](https://arxiv.org/abs/1607.07155)]
     * [RFCN](detection/RFCN.md) R-FCN: Object Detection via Region-based Fully Convolutional Networks | **[NIPS' 16]** |  [[arXiv:1605.06409](https://arxiv.org/abs/1605.06409)]
+    * [PVANET](detection/PAVNET.md) PVANET: Deep but Lightweight Neural Networks for Real-time Object Detection | **[NIPSW' 16]** | [[arXiv:1608.08021](https://arxiv.org/abs/1608.08021)]
     * [YOLO](detection/YOLO.md):
         1. [v1] You Only Look Once: Unified, Real-Time Object Detection | **[CVPR' 16]** | [[arXiv:1506.02640](https://arxiv.org/abs/1506.02640)]
         1. [v2] YOLO9000: Better, Faster, Stronger | **[CVPR' 17]** | [[arXiv:1612.08242)](https://arxiv.org/abs/1612.08242)]
