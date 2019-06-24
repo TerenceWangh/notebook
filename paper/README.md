@@ -5,6 +5,7 @@
     * [MultiBox](detection/MultiBox.md) Scalable Object Detection using Deep Neural Networks | **[CVPR' 14]** | [[arXiv:1312.2249](https://arxiv.org/abs/1312.2249)]
     * [OverFeat](detection/OverFeat.md) OverFeat: Integrated Recognition, Localization and Detection using Convolutional Networks | **[ICLR' 14]** | [[arXiv:1312.6229](https://arxiv.org/abs/1312.6229)]
     * [SPP-Net](detection/SPPNet.md) Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition | **[ECCV' 14]** | [[arXiv:1406.4729](https://arxiv.org/abs/1406.4729)]
+    * [DeepID-Net](detection/DeepID.md) | DeepID-Net: Deformable Deep Convolutional Neural Networks for Object Detection | **[PAMI' 16]** | [[arXiv:1412.5661](https://arxiv.org/abs/1412.5661)]
     * [AttentionNet](detection/AttentionNet.md) AttentionNet: Aggregating Weak Directions for Accurate Object Detection | **[ICCV' 15]** | [[arXiv:1506.07704](https://arxiv.org/abs/1506.07704)]
     * [DeepBox](detection/DeepBox.md) DeepBox: Learning Objectness with Convolutional Networks | **[ICCV' 15]** | [[arXiv:1505.02146](https://arxiv.org/abs/1505.02146)]
     * [DeepProposal](detection/DeepProposal.md) DeepProposal: Hunting Objects by Cascading Deep Convolutional Layers | **[ICCV' 15]** | [[arXiv:1510.04445](https://arxiv.org/abs/1510.04445)]
